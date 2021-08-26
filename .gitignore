@@ -1,0 +1,7 @@
+.DS_Store
+virt/
+core/__pycache__/
+dummy/__pycache__/
+dummy/migrations/
+media/*.csv
+.env

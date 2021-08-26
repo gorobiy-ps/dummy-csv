@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link type="image/png" sizes="32x32" rel="icon" href="{% static 'img/favicon-32.png' %}">
+  <link type="image/png" sizes="96x96" rel="icon" href="{% static 'img/favicon-96.png' %}">
+  <link type="image/png" sizes="120x120" rel="icon" href="{% static 'img/favicon-120.png' %}">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-dark navbar-expand bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">FakeCSV</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <span class="navbar-text">
+                {% block navbar_text %}
+                {% endblock navbar_text %}
+              </span>
+            </li>
+          </ul>
+          <div class="col-auto navbar-text">
+            Hello, <strong>{{ request.session.username }}</strong> <a href="/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  {% block container %}
+  {% endblock container %}
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/features.js' %}"></script>
+</html>

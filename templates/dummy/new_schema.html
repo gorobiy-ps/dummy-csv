@@ -1,0 +1,65 @@
+{% extends "dummy/base.html" %}
+{% block title %}My schemes{% endblock title %}
+{% block navbar_text %}Schemes{% endblock navbar_text %}
+{% block container %}
+    <div class="container mb-5">
+      <form method="POST" id="schema-form">
+        {% csrf_token %}
+        <legend>New Schema</legend>
+        <div class="row gy-3">
+          <div class="col-md-6">
+            <label for="schema-name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="schema-name" name="schema-name" required />
+          </div>
+          <div class="col-md-6 text-center">
+            <button class="btn btn-primary mt-4" type="submit">Submit</button>
+          </div>
+          <div class="col-md-3">
+            <label for="separator" class="form-label">Column Separator</label>
+            <select id="separator" class="form-select" name="schema-separator">
+              {% for separator in separators_data %}
+                <option value="{{ separator.id }}">{{ separator.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="character" class="form-label">String character</label>
+            <select id="character" class="form-select" name="schema-character">
+              {% for text_char in text_chars_data %}
+                <option value="{{ text_char.id }}">{{ text_char.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <legend>Schema Columns</legend>
+      </form>
+
+<!-- quasi-Form for adding new column in schema -->
+      <form class="card" id="quasi-form">
+        <div class="card-body row mb-4" data-iden="ex">
+          <div class="col-md-3">
+            <label for="column-name-ex" class="form-label">Column name</label>
+            <input type="text" class="form-control" id="column-name-ex" name="column-name" required />
+          </div>
+          <div class="col-md-3">
+            <label for="type-ex" class="form-label">Type</label>
+            <select id="type-ex" class="form-select type-select" name="type" required>
+              <option value="">-------</option>
+              {% for field_type in fields_type_data %}
+                <option value="{{ field_type.id }}">{{ field_type.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3 extra-options"></div>
+          <div class="col-md-1">
+            <label for="column-order-1" class="form-label">Order</label>
+            <input type="number" class="form-control" id="column-order-ex" name="order" required />
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+              <button class="btn btn-primary" onclick="add_column(this);" type="button">Add column</button>
+          </div>
+        </div>
+      </form>
+<!-- end of quasi-Form -->
+    </div>
+{% endblock container %}

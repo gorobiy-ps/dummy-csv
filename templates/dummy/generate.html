@@ -1,0 +1,71 @@
+{% extends "dummy/base.html" %}
+{% block title %}My Data Sets{% endblock title %}
+{% block navbar_text %}Schemes{% endblock navbar_text %}
+{% block container %}
+<div class="container mb-5">
+  <div class="row mb-4">
+    <div class="col-auto me-auto">
+      <h2>Data sets</h2>
+    </div>
+    <div class="col-auto" id="schema-id-form">
+      <label for="schema-id">Pick schema: </label>
+      <select name="schema-id" id="schema-id">
+        <option>-----</option>
+        {% for schema in schemes %}
+          <option value="{{ schema.id }}">{{ schema.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-auto" id="rows-quantity-form">
+      <label for="rowsQuantity">Rows: </label>
+      <input type="text" name="quantity" id="rows-quantity" placeholder="5" />
+      <button class="btn btn-success" name="generate">Generate data</button>
+    </div>
+  </div>
+  <div class="row">
+    {% if datasets|length > 0 %}
+    <table class="table table-bordered col-auto">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Schema title</th>
+          <th scope="col">Created</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dataset in datasets %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td><a href="#">{{ dataset.schema.name }}</a></td>
+          <td>{{ dataset.created_date|date:"Y-m-d H:i:s" }}</td>
+          <td class="status">
+            {% if dataset.status == 'ready' %}
+              <span class="badge bg-success">Ready</span>
+            {% elif dataset.status == 'pending' %}
+              <span class="badge bg-secondary pending" data-iden="{{ dataset.task_id }}">Processing</span>
+              <div class="spinner-border spinner-border-sm float-end" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            {% elif dataset.status == 'error' %}
+              <span class="badge bg-danger">Error</span>
+            {% endif %}
+          </td>
+          <td class="actions">
+            {% if dataset.status == 'ready' %}
+            <a href="/download_file/{{ dataset.link_to_file }}" download="{{ dataset.link_to_file }}">
+              Download
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <h3>Sorry, you have no data sets yet. Use "Generate data" form to create first one.</h3>
+    {% endif %}
+  </div>
+</div>
+{% endblock container %}

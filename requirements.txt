@@ -1,0 +1,8 @@
+celery==5.1.2
+Django==3.2.6
+psycopg2==2.9.1
+redis==3.5.3
+gunicorn
+django-heroku
+boto3
+django-storages
