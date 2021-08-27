@@ -1,0 +1,8 @@
+/* Custom Styles */
+html, body { min-height: 100%;}
+header { margin-bottom: 20px;}
+legend { margin-top: 40px;}
+
+#rows-quantity-form > *, #schema-id-form > * { vertical-align: middle !important;}
+input#rows-quantity { width: 55px; height: 38px;}
+#schema-id {height: 38px;}
