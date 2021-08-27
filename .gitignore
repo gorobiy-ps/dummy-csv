@@ -5,3 +5,4 @@ dummy/__pycache__/
 dummy/migrations/
 media/*.csv
 .env
+staticfiles/*
